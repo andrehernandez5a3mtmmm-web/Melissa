@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Para Melissa ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;padding:20px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at top,#fff4f2 0,#f9e5e2 45%,#f2d2d0 100%);
+  color:#40282b;font-family:'DM Sans',sans-serif;
+}
+body:before,body:after{
+  content:"♡";position:fixed;color:#c96f78aa;font-size:90px;
+  pointer-events:none;z-index:0;
+}
+body:before{top:5%;left:5%;transform:rotate(-15deg)}
+body:after{bottom:4%;right:5%;transform:rotate(15deg)}
+
+.app{
+  position:relative;z-index:1;width:min(450px,100%);min-height:650px;
+  background:#fffaf8ee;border:1px solid #ffffff;
+  border-radius:30px;padding:30px 24px;
+  box-shadow:0 25px 70px #7f41412b;
+  display:flex;align-items:center;
+}
+.screen{width:100%;text-align:center;animation:appear .5s ease}
+@keyframes appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.flower{font-size:43px;margin-bottom:9px}
+.kicker{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#a45c65;font-weight:700}
+h1,h2{font-family:'Playfair Display',serif;color:#572f35}
+h1{font-size:31px;line-height:1.15;margin:10px 0 14px}
+h2{font-size:25px;line-height:1.3;margin:12px 0 22px}
+p{font-size:15px;line-height:1.65;color:#765b60}
+
+.primary{
+  border:0;background:#9d4654;color:#fff;font-weight:700;
+  padding:15px 22px;border-radius:50px;font-size:15px;cursor:pointer;
+  box-shadow:0 8px 20px #9d465433;transition:.2s;
+}
+.primary:hover{transform:translateY(-2px);box-shadow:0 11px 24px #9d465444}
+
+.progress{display:flex;gap:6px;justify-content:center;margin:0 0 24px}
+.dot{height:5px;width:34px;border-radius:10px;background:#ead5d5}
+.dot.active{background:#b65b68}
+
+.answers{display:grid;gap:10px;margin-top:18px}
+.answer{
+  border:1px solid #ead1d2;background:#fff;color:#593a3f;
+  padding:15px;border-radius:16px;font-size:14px;cursor:pointer;
+  text-align:left;transition:.18s;font-family:'DM Sans',sans-serif;
+}
+.answer:hover{border-color:#c77983;background:#fff7f6;transform:translateY(-1px)}
+
+.small-note{font-size:12px;color:#ad858a;margin-top:18px}
+.reaction{font-size:48px;margin-bottom:8px;animation:float 1.2s ease}
+@keyframes float{50%{transform:translateY(-6px)}}
+
+.paper{
+  background:#fffdf9;border:1px solid #eadfd5;border-radius:4px;
+  padding:27px 22px;text-align:left;box-shadow:0 12px 30px #6e3c4014;
+  position:relative;
+}
+.paper:before{
+  content:"";position:absolute;left:12px;right:12px;top:10px;height:1px;background:#eadfd5;
+}
+.paper h2{text-align:center;margin:4px 0 18px;font-size:23px}
+.paper p{color:#4d3c3d;font-size:14.5px}
+.signature{text-align:right;font-family:'Playfair Display',serif;font-size:19px;color:#8d3f4c;margin-top:17px}
+.hearts{font-size:30px;letter-spacing:4px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="app"><div id="app"></div></div>
+
+<script>
+const app=document.getElementById("app");
+
+function render(content){
+  app.innerHTML='<div class="screen">'+content+'</div>';
+}
+
+function start(){
+render(`
+<div class="flower">🌷</div>
+<div class="kicker">Una pequeña sorpresa</div>
+<h1>Andre tiene unas preguntas para ti...</h1>
+<p>Pero contesta con honestidad, porque algunas respuestas podrían ser utilizadas en tu contra jajaja. ❤️</p>
+<button class="primary" onclick="q1()">Empezar ❤️</button>
+`);
+}
+
+function progress(n){
+let s='<div class="progress">';
+for(let i=1;i<=5;i++)s+=`<span class="dot ${i<=n?'active':''}"></span>`;
+return s+'</div>';
+}
+
+function q1(){
+render(`
+${progress(1)}
+<div class="kicker">Pregunta 1</div>
+<h2>¿Qué es lo que más te gusta de estar conmigo?</h2>
+<div class="answers">
+<button class="answer" onclick="reaction('🥹','Sabía que te gustaba hacerme reír jajaja.')">Que me haces reír</button>
+<button class="answer" onclick="reaction('❤️','Esos momentos también son de mis favoritos.')">Los momentos juntos</button>
+<button class="answer" onclick="reaction('😂','En eso definitivamente somos expertos.')">Nuestras tonterías</button>
+<button class="answer" onclick="reaction('🫶🏻','Esa era la respuesta que esperaba.')">Todo, obvio</button>
+</div>`);
+}
+
+function reaction(e,text){
+render(`
+<div class="reaction">${e}</div>
+<div class="kicker">Respuesta registrada</div>
+<h2>${text}</h2>
+<p>Bueno... vamos con la siguiente. 👀</p>
+<button class="primary" onclick="q2()">Siguiente →</button>`);
+}
+
+function q2(){
+render(`
+${progress(2)}
+<div class="kicker">Pregunta 2</div>
+<h2>Si mañana pudiéramos escaparnos juntos, ¿qué escogerías?</h2>
+<div class="answers">
+<button class="answer" onclick="choice2('Playa 🌴')">Playa 🌴</button>
+<button class="answer" onclick="choice2('Un viaje ✈️')">Un viaje ✈️</button>
+<button class="answer" onclick="choice2('Quedarnos juntos 🏠')">Quedarnos juntos 🏠</button>
+<button class="answer" onclick="choice2('Lo que sea contigo ❤️')">Lo que sea contigo ❤️</button>
+</div>`);
+}
+
+function choice2(x){
+render(`
+<div class="reaction">🥰</div>
+<div class="kicker">Me gusta esa respuesta</div>
+<h2>${x}</h2>
+<p>La verdad, mientras sea contigo, yo también jalo.</p>
+<button class="primary" onclick="q3()">Continuar →</button>`);
+}
+
+function q3(){
+render(`
+${progress(3)}
+<div class="kicker">Pregunta importante</div>
+<h2>¿Quién quiere más a quién?</h2>
+<div class="answers">
+<button class="answer" onclick="wrong()">Melissa a Andre 😌</button>
+<button class="answer" onclick="right()">Andre a Melissa ❤️</button>
+<button class="answer" onclick="both()">Los dos por igual 🫶🏻</button>
+</div>`);
+}
+
+function wrong(){
+render(`<div class="reaction">😂</div><div class="kicker">Resultado</div><h2>JAJAJA, respuesta incorrecta.</h2><p>Pero se aprecia la confianza con la que lo dijiste.</p><button class="primary" onclick="q3()">Intentar otra vez →</button>`);
+}
+
+function right(){
+render(`<div class="reaction">❤️</div><div class="kicker">Resultado</div><h2>Correcto.</h2><p>Por fin una pregunta fácil jajaja.</p><button class="primary" onclick="q4()">Siguiente →</button>`);
+}
+
+function both(){
+render(`<div class="reaction">🥹</div><div class="kicker">Resultado</div><h2>Voy a aceptar esa respuesta.</h2><p>Aunque yo diría que te quiero un poquito más.</p><button class="primary" onclick="q4()">Siguiente →</button>`);
+}
+
+function q4(){
+render(`
+${progress(4)}
+<div class="kicker">Pregunta 4</div>
+<h2>¿Qué prefieres para una noche conmigo?</h2>
+<div class="answers">
+<button class="answer" onclick="q5()">Película y abrazos 🍿</button>
+<button class="answer" onclick="q5()">Salir a algún lado 🌙</button>
+<button class="answer" onclick="q5()">Quedarnos hablando hasta tarde 🥹</button>
+<button class="answer" onclick="q5()">Mejor no digo porque luego Andre se emociona 😂</button>
+</div>`);
+}
+
+function q5(){
+render(`
+${progress(5)}
+<div class="kicker">Última pregunta</div>
+<h2>¿Quieres seguir haciendo muchas historias conmigo?</h2>
+<div class="answers">
+<button class="answer" onclick="finale()">Sí ❤️</button>
+<button class="answer" onclick="finale()">Obviamente ❤️</button>
+<button class="answer" onclick="finale()">Sí, aunque estés bien menso 😂</button>
+</div>`);
+}
+
+function finale(){
+render(`
+<div class="hearts">♡ ♥ ♡</div>
+<div class="kicker">Nivel desbloqueado</div>
+<h2>Ya llegaste hasta aquí...</h2>
+<p>Pero todo esto era una pequeña excusa porque quería decirte algo.</p>
+<button class="primary" onclick="letter()">Tengo algo que decirte ❤️</button>
+`);
+}
+
+function letter(){
+render(`
+<div class="hearts">♡ ♥ ♡</div>
+<div class="paper">
+<h2>Para Melissa ❤️</h2>
+<p>Solo quería recordarte que te amo muchísimo y que me encanta tenerte en mi vida. Me haces muy feliz y me encanta compartir contigo, reírnos, hacer nuestras tonterías y estar juntos.</p>
+<p>No cambiaría por nada todo lo que tenemos. ❤️</p>
+<div class="signature">Te amo mucho, mi chaparrita. — Andre</div>
+<div class="signature">— Andre</div>
+</div>
+`);
+}
+
+start();
+</script>
+</body>
+</html>
